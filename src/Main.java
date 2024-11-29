@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -7,12 +8,12 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        HashMap<String, String> yesterdayData = getYesterdayData();
-        HashMap<String, String> todayData = getTodayData();
+        Map<String, String> yesterdayData = getYesterdayData();
+        Map<String, String> todayData = getTodayData();
         System.out.print(generateReport(yesterdayData, todayData, "Инна Ивановна"));
     }
 
-    public static HashMap<String, String> getYesterdayData(){       //Sample data
+    public static Map<String, String> getYesterdayData(){       //Sample data
         HashMap<String, String> yesterdayData = new HashMap<>();
         yesterdayData.put("http://example.com/page1", "<html>Page 1</html>");
         yesterdayData.put("http://example.com/page2", "<html>Page 2</html>");
@@ -20,17 +21,17 @@ public class Main {
         return  yesterdayData;
     }
 
-    public static HashMap<String, String> getTodayData(){       //Sample data
+    public static Map<String, String> getTodayData(){       //Sample data
         HashMap<String, String> todayData = new HashMap<>();
         todayData.put("http://example.com/page1", "<html>Page 1</html>");
         todayData.put("http://example.com/page2", "<html>Updated Page 2</html>");
         todayData.put("http://example.com/page4", "<html>Page 4</html>");
         return  todayData;
     }
-    public static String generateReport(HashMap<String, String> yesterdayData, HashMap<String, String> todayData){
+    public static String generateReport(final HashMap<String, String> yesterdayData, final HashMap<String, String> todayData){
         return generateReport(yesterdayData, todayData, "");
     }
-    public static String generateReport(HashMap<String, String> yesterdayData, HashMap<String, String> todayData, String name){
+    public static String generateReport(final Map<String, String> yesterdayData, final Map<String, String> todayData, String name){
         Set<String> deletedPages = new HashSet<>(yesterdayData.keySet());
         Set<String> newPages = new HashSet<>(todayData.keySet());
         Set<String> editedPages = new HashSet<>();
@@ -45,7 +46,7 @@ public class Main {
         }
 
         StringBuilder report = new StringBuilder();
-        report.append(name.isEmpty() ?"Здравствуйте, дорогой секретарь.\n": "Здравствуйте, дорогая " + name + ".\n");
+        report.append(name.isBlank() ?"Здравствуйте, дорогой секретарь.\n": "Здравствуйте, дорогая " + name + ".\n");
 
         if (deletedPages.isEmpty() && newPages.isEmpty() && editedPages.isEmpty()) {
             report.append("За последние сутки во вверенных Вам сайтах изменений не было.\n");
